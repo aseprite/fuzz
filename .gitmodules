@@ -1,0 +1,6 @@
+[submodule "flic"]
+	path = flic
+	url = https://github.com/aseprite/flic
+[submodule "tga"]
+	path = tga
+	url = https://github.com/aseprite/tga
