@@ -1,4 +1,4 @@
-// Copyright (C) 2020  Igara Studio S.A.
+// Copyright (C) 2020-2022  Igara Studio S.A.
 
 #include "flic/flic.h"
 
@@ -55,6 +55,11 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size)
   flic::Header header;
   if (!decoder.readHeader(header))
     return 1;
+
+  // TODO "header.width*header.height" can overflow/give a negative
+  //      value and this is not obvious from the API client side.
+  if (size_t(header.width) * size_t(header.height) > 1024*1024*1024) // No more than 1 GB
+    return 0;
 
   std::vector<uint8_t> buffer(header.width * header.height);
   flic::Frame frame;

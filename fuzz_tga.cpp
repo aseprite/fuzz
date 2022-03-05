@@ -1,4 +1,4 @@
-// Copyright (C) 2020  Igara Studio S.A.
+// Copyright (C) 2020-2022  Igara Studio S.A.
 
 #include "tga/tga.h"
 
@@ -59,6 +59,10 @@ extern "C" int LLVMFuzzerTestOneInput(const uint8_t* data, size_t size)
   tga::Image image;
   image.bytesPerPixel = header.bytesPerPixel();
   image.rowstride = header.width * header.bytesPerPixel();
+
+  if (image.rowstride * header.height > 1024*1024*1024) // No more than 1 GB
+    return 0;
+
   std::vector<uint8_t> buffer(image.rowstride * header.height);
   image.pixels = &buffer[0];
 
