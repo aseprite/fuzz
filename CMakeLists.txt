@@ -1,6 +1,10 @@
-# Copyright (C) 2020-2022  Igara Studio S.A.
+# Copyright (C) 2020-2023  Igara Studio S.A.
 
 cmake_minimum_required(VERSION 3.16)
+
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
 project(fuzz)
 
 include_directories(.)
